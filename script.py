@@ -71,7 +71,7 @@ re_pattern = re.compile(r"^"
 )
 
 
-def main(number=None, filename=None, outfile='output.tsv',debug=False):
+def main(number=None, filename=None, debug=False):
     if number:
         if debug:
             print(number)
@@ -84,18 +84,14 @@ def main(number=None, filename=None, outfile='output.tsv',debug=False):
             print(filename)
         try:
             f = open('filename','r')
-            fw = open(outfile,'w+')
             data = f.read()
             for line in data:
                 for match in re_pattern.finditer(line):
-                    fw.write(str(match.lastgroup)+'\t'+match.group(0))
-            fw.flush()
+                    print(str(match.lastgroup)+'\t'+match.group(0))
         except Exception as e:
             print(str(e))
         finally:
-            fw.close()
             f.close()
-            print(f'output written to {outfile}!')
 
 
 if __name__=="__main__":
